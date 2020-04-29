@@ -9,12 +9,12 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     private long counter = 1;
 
     public TimeEntry create(TimeEntry timeEntry) {
-        timeEntry.setId(counter);
+        TimeEntry createdTimeEntry = new TimeEntry(counter, timeEntry.getProjectId(), timeEntry.getUserId(), timeEntry.getDate(), timeEntry.getHours());
         counter++;
 
-        entries.put(timeEntry.getId(), timeEntry);
+        entries.put(createdTimeEntry.getId(), createdTimeEntry);
 
-        return timeEntry;
+        return createdTimeEntry;
     }
 
     public TimeEntry find(long id) {
@@ -30,10 +30,10 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
             return null;
         }
 
-        timeEntry.setId(id);
-        entries.put(timeEntry.getId(), timeEntry);
+        TimeEntry updatedTimeEntry = new TimeEntry(id, timeEntry.getProjectId(), timeEntry.getUserId(), timeEntry.getDate(), timeEntry.getHours());
+        entries.put(updatedTimeEntry.getId(), updatedTimeEntry);
 
-        return timeEntry;
+        return updatedTimeEntry;
     }
 
     public void delete(long id) {
