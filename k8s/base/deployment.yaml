@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: pal-tracker-container
-          image: alexbarbato4/pal-tracker:v1
+          image: alexbarbato4/pal-tracker:build-9
           envFrom:
             - secretRef:
                 name: db-credentials
@@ -38,3 +38,13 @@ spec:
                 configMapKeyRef:
                   name: pal-tracker
                   key: welcome.message
+            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+              valueFrom:
+                configMapKeyRef:
+                  name: pal-tracker
+                  key: management.endpoints.web.exposure.include
+            - name: MANAGEMENT_ENDPOINT_HEALTH_SHOWDETAILS
+              valueFrom:
+                configMapKeyRef:
+                  name: pal-tracker
+                  key: management.endpoint.health.showdetails
