@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: pal-tracker-container
-          image: alexbarbato4/pal-tracker:build-9
+          image: alexbarbato4/pal-tracker:build-10
           envFrom:
             - secretRef:
                 name: db-credentials
@@ -28,6 +28,11 @@ spec:
             httpGet:
               path: /
               port: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 150
           lifecycle:
             preStop:
               exec:
